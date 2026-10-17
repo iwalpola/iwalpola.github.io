@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isuru Walpola</title>
+    <meta name="description" content="Science teacher, mechanical engineer, maker and electronics enthusiast. Always learning how to code better.">
+    <style>
+        :root {
+            --paper: #f5f0e6; --ink: #1f2a2c; --muted: #6b7274; --line: #d9d1c0;
+            --accent: #d9593d; --teal: #2f6f6b;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root { --paper: #14191a; --ink: #ece7da; --muted: #8f9895; --line: #2c3535; --accent: #ec7a5e; --teal: #5fb0a9; }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
+        a { color: inherit; }
+        .wrap { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+        header { padding: 72px 0 28px; }
+        h1 { font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif; font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 400; letter-spacing: -1.5px; line-height: 1.05; }
+        h1 em { font-style: italic; color: var(--accent); }
+        .byline { color: var(--muted); margin-top: 14px; line-height: 1.5; }
+        .lede { font-family: Georgia, 'Iowan Old Style', serif; font-size: 1.5rem; line-height: 1.45; margin: 12px 0 28px; }
+        p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.2em; }
+        h2 { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 40px 0 0; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+        ul { list-style: none; }
+        li { display: flex; gap: 24px; padding: 14px 0; border-bottom: 1px solid var(--line); line-height: 1.5; }
+        .when { font-family: Georgia, serif; font-style: italic; color: var(--muted); min-width: 7em; }
+        .item a { text-decoration: none; font-weight: 600; border-bottom: 1.5px solid var(--accent); }
+        .item a:hover { color: var(--accent); }
+        .item small { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 2px; font-weight: 400; }
+        .feature { display: block; margin: 8px 0 0; padding: 22px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+        .feature strong { font-family: Georgia, serif; font-size: 1.4rem; font-weight: 400; }
+        .feature:hover strong { color: var(--accent); }
+        .feature span { display: block; color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
+        footer { padding: 28px 0 56px; display: flex; gap: 24px; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; }
+        footer a { text-decoration: none; border-bottom: 1px solid var(--line); }
+        footer a:hover { color: var(--accent); border-color: var(--accent); }
+        @media (max-width: 600px) { header { padding-top: 44px; } li { flex-direction: column; gap: 2px; } }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <h1>Isuru <em>Walpola</em></h1>
+        <p class="byline">Science teacher · Mechanical engineer · Maker</p>
+    </header>
+
+    <main>
+        <p class="lede">I teach science, and I build the simulations I wish I had on the board when explaining an idea for the third time.</p>
+
+        <p>My background is in mechanical engineering, and I have always been a maker and an electronics enthusiast who likes learning how to code better. That mix is where my work comes from.</p>
+
+        <a class="feature" href="/science_simulations/">
+            <strong>GCSE Science Simulations →</strong>
+            <span>Physics, chemistry and biology, each one a single HTML file that opens from a memory stick and runs on a projector.</span>
+        </a>
+
+        <h2>Teaching</h2>
+        <ul>
+            <li><span class="when">Now</span><span>Science teacher at a school in Buckinghamshire, UK</span></li>
+            <li><span class="when">6 years</span><span>Science teacher at Colombo International School, Sri Lanka</span></li>
+        </ul>
+
+        <h2>Open source</h2>
+        <ul>
+            <li class="item"><span><a href="https://github.com/iwalpola/science_simulations">science_simulations</a><small>Interactive GCSE science simulations, built to be projected.</small></span></li>
+            <li class="item"><span><a href="https://github.com/iwalpola/Adafruit_ILI9341_8bit_STM">Adafruit_ILI9341_8bit_STM</a><small>8-bit parallel library for the ILI9341 display and STM32F1.</small></span></li>
+            <li class="item"><span><a href="https://github.com/iwalpola/zoom_attendance_checker">zoom_attendance_checker</a><small>Compare a list of students against a Zoom Active Hosts report.</small></span></li>
+            <li class="item"><span><a href="https://github.com/iwalpola/a2physics">a2physics</a><small>A2 Physics pages.</small></span></li>
+        </ul>
+
+        <h2>Get in touch</h2>
+        <p style="margin-top:18px">Questions, corrections or ideas for a new simulation are welcome. The easiest way to reach me is through <a href="https://github.com/iwalpola" style="font-weight:600;border-bottom:1.5px solid var(--accent);text-decoration:none">GitHub</a>.</p>
+    </main>
+
+    <footer>
+        <a href="https://github.com/iwalpola">GitHub</a>
+        <a href="/science_simulations/">Science simulations</a>
+        <a href="/science_simulations/about.html">About the simulations</a>
+    </footer>
+</div>
+</body>
+</html>
