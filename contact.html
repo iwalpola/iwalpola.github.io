@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact · Isuru Walpola</title>
+    <meta name="description" content="Get in touch with Isuru Walpola about science teaching, the simulations or the coordination layer.">
+    <style>
+        :root { --paper: #f5f0e6; --deep: #ebe4d3; --ink: #1f2a2c; --muted: #5f6769; --line: #cfc6b2; --accent: #d9593d; --teal: #2f6f6b; --err: #b3261e; }
+        @media (prefers-color-scheme: dark) {
+            :root { --paper: #12181a; --deep: #182022; --ink: #ece7da; --muted: #9aa3a0; --line: #34403f; --accent: #ec7a5e; --teal: #5fb0a9; --err: #ff8a80; }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; min-height: 100vh; }
+        a { color: inherit; }
+        .wrap { max-width: 620px; margin: 0 auto; padding: 0 24px; }
+        .back { display: inline-block; margin-top: 28px; font-size: 0.85rem; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+        .back:hover { color: var(--accent); border-color: var(--accent); }
+        h1 { font-family: Georgia, 'Iowan Old Style', serif; font-weight: 400; font-size: clamp(2.2rem, 7vw, 3.4rem); letter-spacing: -1.5px; line-height: 1.08; margin: 34px 0 14px; }
+        h1 em { color: var(--accent); }
+        .lede { color: var(--muted); font-size: 1.08rem; margin-bottom: 34px; }
+        form { display: grid; gap: 20px; margin-bottom: 40px; }
+        label { display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.4px; margin-bottom: 6px; }
+        input, select, textarea { width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--deep); border: 1.5px solid var(--line); border-radius: 10px; padding: 11px 14px; transition: border-color .2s; }
+        textarea { min-height: 170px; resize: vertical; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+        button { justify-self: start; font: inherit; font-weight: 600; font-size: 0.95rem; padding: 12px 26px; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+        button:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; }
+        button:disabled { opacity: 0.55; cursor: default; }
+        #status { min-height: 1.6em; font-size: 0.95rem; }
+        #status.ok { color: var(--teal); }
+        #status.err { color: var(--err); }
+        .note { font-size: 0.8rem; color: var(--muted); padding-bottom: 56px; }
+        @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <a class="back" href="./">&larr; Isuru Walpola</a>
+    <h1>Say <em>hello</em>.</h1>
+    <p class="lede">Questions, corrections, ideas for a new simulation, or thoughts on the coordination layer. I read everything and reply by email.</p>
+
+    <form id="f" novalidate>
+        <div class="row">
+            <div><label for="name">Name</label><input id="name" name="name" autocomplete="name" maxlength="100" required></div>
+            <div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+        </div>
+        <div>
+            <label for="topic">What is it about?</label>
+            <select id="topic" name="topic">
+                <option value="teaching">Teaching and the simulations</option>
+                <option value="network">The coordination layer</option>
+                <option value="collab">Collaborating</option>
+                <option value="other">Something else</option>
+            </select>
+        </div>
+        <div><label for="message">Message</label><textarea id="message" name="message" maxlength="5000" required></textarea></div>
+        <!-- honeypot: real people never see or fill this -->
+        <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <button id="go" type="submit">Send message</button>
+        <p id="status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="note">Your message goes straight to my inbox and nowhere else. I use your email only to reply.</p>
+</div>
+
+<script>
+/* Paste the Web app URL from the Apps Script deployment here
+   (see contact-setup/README.md). */
+const ENDPOINT = '';
+
+const f = document.getElementById('f'), go = document.getElementById('go'), st = document.getElementById('status');
+function say(msg, cls) { st.textContent = msg; st.className = cls || ''; }
+
+f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(f));
+    if (!d.name.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email) || d.message.trim().length < 5) {
+        say('Please add your name, a valid email and a message.', 'err'); return;
+    }
+    if (!ENDPOINT) { say('This form is not connected yet.', 'err'); return; }
+    go.disabled = true; say('Sending...');
+    try {
+        /* no-cors: Apps Script sends no CORS headers, so the reply cannot be
+           read. A completed request is taken as sent. */
+        await fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(d) });
+        f.reset(); say('Thank you, your message is on its way.', 'ok');
+    } catch (err) {
+        say('Something went wrong. Please try again in a moment.', 'err');
+    }
+    go.disabled = false;
+});
+</script>
+</body>
+</html>
